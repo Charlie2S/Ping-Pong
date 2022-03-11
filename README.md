@@ -1,2 +1,3 @@
 # Ping-Pong
-# Ya tengo el fondo y los dos jugadores con sus movimientos.
+# Día 1: Hoy he hecho el fondo, los dos jugadores y sus movimientos.
+# Falta: La pelota, sus movimientos y las colisiones con los jugadores.
