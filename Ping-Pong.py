@@ -15,6 +15,9 @@ class GameSprite(sprite.Sprite):
     def reset(self):
         window.blit(self.image,(self.rect.x,self.rect.y))
 
+class pelota(GameSprite):
+    def __init__(self, ima, x, y, v, a, l):
+        super().__init__(ima, x, y, v, a, l)
 
 class pala(GameSprite):
     def __init__(self, ima, x, y, v, a, l):
@@ -38,15 +41,27 @@ class pala(GameSprite):
 window = display.set_mode((win_largo, win_ancho))
 display.set_caption("Ping-Pong")
 background=transform.scale(image.load("fond_campo.jpg"), (win_largo,win_ancho))
-jugador_1 = pala("fond_azul.png", 70, 200, 1, 10, 100)
-jugador_2 = pala("fond_rojo.png", 625, 200, 1, 10, 100)
+jugador_1 = pala("fond_azul.png", 70, 200, 2, 10, 100)
+jugador_2 = pala("fond_rojo.png", 625, 200, 2, 10, 100)
+pelota = pelota("pelota.png",320, 230, 1, 40, 40 )
 
+speed_x=1
+speed_y=1
 game = True
 finish=False
 while game:
     window.blit(background,(0, 0))
     jugador_1.update_izq()
     jugador_2.update_der()
+    
+    pelota.rect.y+=speed_y
+    pelota.rect.x+=speed_x
+    if pelota.rect.y==430 or pelota.rect.y==40:
+        speed_y *= -1
+    if sprite.collide_rect(jugador_1, pelota) or sprite.collide_rect(jugador_2, pelota):
+        speed_x *= -1
+    
+    pelota.reset()
     for e in event.get():
         if e.type == QUIT:
             game=False
